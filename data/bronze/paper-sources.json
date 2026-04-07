@@ -1,0 +1,38 @@
+[
+  {
+    "id": "rag",
+    "shortName": "RAG",
+    "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "authors": ["Patrick Lewis", "Ethan Perez", "Aleksandara Piktus"],
+    "year": 2020,
+    "pdfUrl": "https://arxiv.org/pdf/2005.11401.pdf",
+    "landingUrl": "https://arxiv.org/abs/2005.11401",
+    "focus": "Couples a seq2seq generator with dense retrieval so external documents act as non-parametric memory.",
+    "summary": "Strong baseline for retrieval-augmented generation on knowledge-intensive tasks, with clear separation between retrieved evidence and generation.",
+    "limitations": "Uses a comparatively simple retrieval stack and predates later self-correction and retrieval-quality control methods."
+  },
+  {
+    "id": "self-rag",
+    "shortName": "Self-RAG",
+    "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+    "authors": ["Akari Asai", "Zequn Jie", "Aman Madaan"],
+    "year": 2023,
+    "pdfUrl": "https://arxiv.org/pdf/2310.11511.pdf",
+    "landingUrl": "https://arxiv.org/abs/2310.11511",
+    "focus": "Adds reflection tokens so the model can decide when to retrieve and critique its own responses.",
+    "summary": "Better fit when the system must adapt retrieval behavior per question and justify its answers with self-critique.",
+    "limitations": "Training and runtime behavior are more complex than a standard retrieve-then-generate pipeline."
+  },
+  {
+    "id": "crag",
+    "shortName": "CRAG",
+    "title": "Corrective Retrieval Augmented Generation",
+    "authors": ["Yunfan Yan", "Menglin Yang", "Jing Qin"],
+    "year": 2024,
+    "pdfUrl": "https://arxiv.org/pdf/2401.15884.pdf",
+    "landingUrl": "https://arxiv.org/abs/2401.15884",
+    "focus": "Evaluates retrieval quality, corrects weak retrieval with fallback web knowledge, and refines evidence before generation.",
+    "summary": "Useful when retrieval quality is inconsistent and the application needs an explicit quality-control step before generation.",
+    "limitations": "Adds corrective logic and external-search assumptions that increase system complexity for a small POC."
+  }
+]

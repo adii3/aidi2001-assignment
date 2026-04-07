@@ -1,0 +1,38 @@
+name: Refresh Paper Corpus
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/bronze/**"
+      - "scripts/ingest-papers.ts"
+      - "src/lib/papers/etl.ts"
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run corpus ingestion
+        run: npm run ingest
+
+      - name: Upload curated corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: rag-paper-corpus
+          path: |
+            data/silver/paper-text.json
+            data/gold/papers.json
+            data/gold/chunks.json

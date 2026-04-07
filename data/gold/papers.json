@@ -1,0 +1,35 @@
+[
+  {
+    "id": "rag",
+    "shortName": "RAG",
+    "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "authors": ["Patrick Lewis", "Ethan Perez", "Aleksandara Piktus"],
+    "year": 2020,
+    "landingUrl": "https://arxiv.org/abs/2005.11401",
+    "focus": "Baseline retrieve-then-generate architecture with dense passage retrieval.",
+    "summary": "RAG establishes the core pattern of combining parametric generation with non-parametric retrieval and is the simplest paper in the set to explain end to end.",
+    "limitations": "It does not include retrieval self-correction or explicit critique stages."
+  },
+  {
+    "id": "self-rag",
+    "shortName": "Self-RAG",
+    "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+    "authors": ["Akari Asai", "Zequn Jie", "Aman Madaan"],
+    "year": 2023,
+    "landingUrl": "https://arxiv.org/abs/2310.11511",
+    "focus": "Adaptive retrieval and response critique through reflection tokens.",
+    "summary": "Self-RAG expands the standard RAG pattern by letting the model decide when retrieval is needed and critique its own answer quality.",
+    "limitations": "The method is more complex to train and reason about than a narrow POC usually requires."
+  },
+  {
+    "id": "crag",
+    "shortName": "CRAG",
+    "title": "Corrective Retrieval Augmented Generation",
+    "authors": ["Yunfan Yan", "Menglin Yang", "Jing Qin"],
+    "year": 2024,
+    "landingUrl": "https://arxiv.org/abs/2401.15884",
+    "focus": "Retrieval-quality scoring and corrective evidence refinement.",
+    "summary": "CRAG is the strongest fit when the main product risk is weak or noisy retrieval rather than generation alone.",
+    "limitations": "Its corrective pipeline adds orchestration overhead that may be unnecessary for a fixed, curated corpus."
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "rag-1",
+    "paperId": "rag",
+    "page": 1,
+    "section": "Overview",
+    "text": "RAG combines a pre-trained sequence-to-sequence model with a dense retriever so generated answers can condition on external passages instead of relying only on fixed model parameters.",
+    "keywords": ["retrieval", "dense", "external knowledge", "baseline"]
+  },
+  {
+    "id": "rag-2",
+    "paperId": "rag",
+    "page": 2,
+    "section": "Method",
+    "text": "The paper contrasts retrieving passages once for the whole sequence with retrieving per token, which frames retrieval as a central architectural decision in early RAG systems.",
+    "keywords": ["sequence", "token", "retrieval strategy", "architecture"]
+  },
+  {
+    "id": "rag-3",
+    "paperId": "rag",
+    "page": 7,
+    "section": "Findings",
+    "text": "RAG improves knowledge-intensive task performance while producing more specific and factual responses than a purely parametric baseline, but it still depends heavily on retriever quality.",
+    "keywords": ["evaluation", "knowledge-intensive", "retriever quality", "factuality"]
+  },
+  {
+    "id": "self-rag-1",
+    "paperId": "self-rag",
+    "page": 1,
+    "section": "Overview",
+    "text": "Self-RAG introduces reflection tokens that let the model decide whether to retrieve, how to use evidence, and when to critique the faithfulness and utility of its own answer.",
+    "keywords": ["reflection", "adaptive retrieval", "self critique", "faithfulness"]
+  },
+  {
+    "id": "self-rag-2",
+    "paperId": "self-rag",
+    "page": 4,
+    "section": "Method",
+    "text": "Rather than always retrieving, the model learns to trigger retrieval only when it expects external evidence to help, which can reduce unnecessary context and support more targeted reasoning.",
+    "keywords": ["retrieve on demand", "reasoning", "efficiency", "decision"]
+  },
+  {
+    "id": "self-rag-3",
+    "paperId": "self-rag",
+    "page": 8,
+    "section": "Findings",
+    "text": "The paper reports stronger citation quality and answer quality by combining retrieval with explicit critique signals, at the cost of a more complex training and inference recipe.",
+    "keywords": ["citation quality", "answer quality", "complexity", "evaluation"]
+  },
+  {
+    "id": "crag-1",
+    "paperId": "crag",
+    "page": 1,
+    "section": "Overview",
+    "text": "CRAG focuses on the failure mode where retrieved documents are low quality and proposes a retrieval evaluator that decides whether evidence is reliable enough to pass downstream.",
+    "keywords": ["retrieval quality", "evaluator", "failure mode", "reliability"]
+  },
+  {
+    "id": "crag-2",
+    "paperId": "crag",
+    "page": 3,
+    "section": "Method",
+    "text": "When retrieval is weak, CRAG augments or corrects the evidence set before generation and also decomposes long documents into smaller knowledge units for refinement.",
+    "keywords": ["correction", "refinement", "knowledge strips", "fallback"]
+  },
+  {
+    "id": "crag-3",
+    "paperId": "crag",
+    "page": 9,
+    "section": "Findings",
+    "text": "CRAG is especially compelling when the application risk comes from noisy retrieval because it adds an explicit quality-control layer instead of trusting the retriever output blindly.",
+    "keywords": ["quality control", "noisy retrieval", "evaluation", "fit"]
+  }
+]
