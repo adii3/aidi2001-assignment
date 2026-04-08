@@ -74,11 +74,7 @@ export async function generateComparisonAnswer({
   });
 
   const content = completion.choices[0]?.message.content;
-  const parsed = ComparisonAnswerSchema.parse(
-    JSON.parse(extractJsonString(content)),
-  );
-
-  return parsed;
+  return parseModelAnswer(content, { prompt, papers, citations });
 }
 
 function extractJsonString(content: unknown) {
@@ -105,6 +101,137 @@ function extractJsonString(content: unknown) {
   }
 
   throw new Error("The model did not return any content.");
+}
+
+type FallbackContext = {
+  prompt: GuidedPrompt;
+  papers: Paper[];
+  citations: Citation[];
+};
+
+export function parseModelAnswer(content: unknown, context: FallbackContext) {
+  const raw = extractJsonString(content);
+
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    const normalized = normalizeModelPayload(parsed);
+    const result = ComparisonAnswerSchema.safeParse(normalized);
+
+    if (result.success) {
+      return result.data;
+    }
+  } catch {
+    // Fall back to a deterministic answer when the provider returns
+    // non-JSON or loosely structured JSON.
+  }
+
+  return buildFallbackAnswer(context);
+}
+
+function normalizeModelPayload(input: unknown): unknown {
+  const source = unwrapPayload(input);
+
+  if (!source || typeof source !== "object") {
+    return input;
+  }
+
+  const record = source as Record<string, unknown>;
+
+  return {
+    summary: firstString(record.summary, record.overview, record.introduction),
+    differences: toStringArray(record.differences, record.keyDifferences, record.comparisons),
+    recommendation: firstString(
+      record.recommendation,
+      record.bestFit,
+      record.best_fit_recommendation,
+    ),
+    cautions: toStringArray(record.cautions, record.limitations, record.risks, record.tradeoffs),
+  };
+}
+
+function unwrapPayload(input: unknown): unknown {
+  if (!input || typeof input !== "object") {
+    return input;
+  }
+
+  const record = input as Record<string, unknown>;
+
+  if (record.answer && typeof record.answer === "object") {
+    return record.answer;
+  }
+
+  if (record.result && typeof record.result === "object") {
+    return record.result;
+  }
+
+  return input;
+}
+
+function firstString(...values: unknown[]) {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+  }
+
+  return undefined;
+}
+
+function toStringArray(...values: unknown[]) {
+  for (const value of values) {
+    if (Array.isArray(value)) {
+      const items = value
+        .filter((item): item is string => typeof item === "string" && item.trim().length > 0)
+        .map((item) => item.trim());
+
+      if (items.length > 0) {
+        return items;
+      }
+    }
+
+    if (typeof value === "string" && value.trim()) {
+      const items = value
+        .split(/\n|•|-/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+      if (items.length > 0) {
+        return items;
+      }
+    }
+  }
+
+  return undefined;
+}
+
+function buildFallbackAnswer({ prompt, papers, citations }: FallbackContext) {
+  const topPapers = papers.slice(0, 3);
+  const differences = topPapers.map((paper) => {
+    const evidence = citations.find((citation) => citation.paperId === paper.id);
+    const support = evidence ? ` Evidence focus: ${evidence.section} on page ${evidence.page}.` : "";
+    return `${paper.shortName} emphasizes ${paper.focus.toLowerCase()} and is summarized as: ${paper.summary}${support}`;
+  });
+
+  while (differences.length < 2) {
+    differences.push("The selected papers differ in retrieval control, evidence use, or implementation complexity.");
+  }
+
+  const firstPaper = papers[0];
+  const simplestPaper =
+    papers.find((paper) => /simplest|baseline/i.test(`${paper.summary} ${paper.focus}`)) ?? firstPaper;
+
+  return {
+    summary: `${prompt.label} comparison across ${papers.map((paper) => paper.shortName).join(", ")} using curated corpus evidence.`,
+    differences: differences.slice(0, 5),
+    recommendation: `For a lightweight proof of concept, ${simplestPaper?.shortName ?? "the simplest paper"} is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead.`,
+    cautions: [
+      ...papers
+        .map((paper) => `${paper.shortName}: ${paper.limitations}`)
+        .filter(Boolean)
+        .slice(0, 3),
+      "Treat this fallback answer as citation-guided synthesis and verify claims against the evidence snippets shown in the UI.",
+    ].slice(0, 4),
+  };
 }
 
 function stripMarkdownFence(value: string) {
