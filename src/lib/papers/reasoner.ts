@@ -81,15 +81,24 @@ export async function generateComparisonAnswer({
   return parsed;
 }
 
-function extractJsonString(content: OpenAI.Chat.Completions.ChatCompletionMessage["content"]) {
+function extractJsonString(content: unknown) {
   if (typeof content === "string") {
     return stripMarkdownFence(content);
   }
 
   if (Array.isArray(content)) {
     const joined = content
-      .filter((item): item is Extract<typeof item, { type: "text" }> => item.type === "text")
-      .map((item) => item.text)
+      .map((item) => {
+        if (!item || typeof item !== "object") {
+          return "";
+        }
+
+        const maybeText = item as { type?: unknown; text?: unknown };
+        return maybeText.type === "text" && typeof maybeText.text === "string"
+          ? maybeText.text
+          : "";
+      })
+      .filter(Boolean)
       .join("\n");
 
     return stripMarkdownFence(joined);
