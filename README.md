@@ -35,11 +35,22 @@ The data flow is deliberately simple:
 npm install
 ```
 
-2. Add environment variables in `.env.local`:
+2. Add environment variables in `.env.local`.
+
+OpenAI:
 
 ```bash
+LLM_PROVIDER=openai
 OPENAI_API_KEY=your_key_here
 OPENAI_MODEL=gpt-4o-mini
+```
+
+Groq:
+
+```bash
+LLM_PROVIDER=groq
+GROQ_API_KEY=your_key_here
+GROQ_MODEL=llama-3.3-70b-versatile
 ```
 
 3. Run the app:
@@ -90,7 +101,7 @@ The repo includes `.github/workflows/ingest.yml`, which runs the ingestion pipel
 
 Deploy the repo to Vercel and set the same environment variables there:
 
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL`
+- OpenAI: `LLM_PROVIDER=openai`, `OPENAI_API_KEY`, `OPENAI_MODEL`
+- or Groq: `LLM_PROVIDER=groq`, `GROQ_API_KEY`, `GROQ_MODEL`
 
 The deployed app should expose the same guided comparison workflow shown locally.

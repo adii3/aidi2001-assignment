@@ -1,6 +1,6 @@
 import OpenAI from "openai";
-import { zodResponseFormat } from "openai/helpers/zod";
 import { ComparisonAnswerSchema } from "./compare";
+import { getLlmConfig } from "./llm-config";
 import type { Citation, GuidedPrompt, Paper } from "./types";
 
 type ReasonerInput = {
@@ -30,21 +30,27 @@ export async function generateComparisonAnswer({
     };
   }
 
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error("OPENAI_API_KEY is not configured.");
-  }
+  const config = getLlmConfig();
 
   const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: config.apiKey,
+    baseURL: config.baseURL,
   });
 
-  const completion = await client.chat.completions.parse({
-    model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+  const completion = await client.chat.completions.create({
+    model: config.model,
     messages: [
       {
         role: "developer",
         content:
-          "You compare a small fixed paper set for a student proof of concept. Use only the provided evidence. Keep claims concrete and avoid exaggeration.",
+          [
+            "You compare a small fixed paper set for a student proof of concept.",
+            "Use only the provided evidence.",
+            "Keep claims concrete and avoid exaggeration.",
+            "Return valid JSON with exactly these keys:",
+            "summary, differences, recommendation, cautions.",
+            "differences and cautions must be arrays of strings.",
+          ].join(" "),
       },
       {
         role: "user",
@@ -64,14 +70,39 @@ export async function generateComparisonAnswer({
         ].join("\n"),
       },
     ],
-    response_format: zodResponseFormat(ComparisonAnswerSchema, "paper_comparison"),
+    response_format: { type: "json_object" },
   });
 
-  const parsed = completion.choices[0]?.message.parsed;
-
-  if (!parsed) {
-    throw new Error("The model did not return a structured comparison.");
-  }
+  const content = completion.choices[0]?.message.content;
+  const parsed = ComparisonAnswerSchema.parse(
+    JSON.parse(extractJsonString(content)),
+  );
 
   return parsed;
+}
+
+function extractJsonString(content: OpenAI.Chat.Completions.ChatCompletionMessage["content"]) {
+  if (typeof content === "string") {
+    return stripMarkdownFence(content);
+  }
+
+  if (Array.isArray(content)) {
+    const joined = content
+      .filter((item): item is Extract<typeof item, { type: "text" }> => item.type === "text")
+      .map((item) => item.text)
+      .join("\n");
+
+    return stripMarkdownFence(joined);
+  }
+
+  throw new Error("The model did not return any content.");
+}
+
+function stripMarkdownFence(value: string) {
+  const trimmed = value.trim();
+  if (trimmed.startsWith("```")) {
+    return trimmed.replace(/^```json\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/, "");
+  }
+
+  return trimmed;
 }
