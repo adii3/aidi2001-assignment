@@ -4,10 +4,25 @@ import { getGuidedPrompt } from "./questions";
 import { loadCorpus } from "./repository";
 import type { Citation, Corpus, GuidedPrompt, Paper } from "./types";
 
-export const CompareRequestSchema = z.object({
+export const CompareRequestSchema = z.preprocess((value) => {
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+
+  const payload = value as {
+    paperIds?: unknown;
+    selectedPaperIds?: unknown;
+    promptId?: unknown;
+  };
+
+  return {
+    paperIds: payload.paperIds ?? payload.selectedPaperIds,
+    promptId: payload.promptId,
+  };
+}, z.object({
   paperIds: z.array(z.string()).min(2).max(3),
   promptId: z.string().min(1),
-});
+}));
 
 export const ComparisonAnswerSchema = z.object({
   summary: z.string(),

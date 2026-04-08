@@ -11,7 +11,9 @@ type CompareWorkbenchProps = {
 };
 
 export function CompareWorkbench({ papers }: CompareWorkbenchProps) {
-  const [selectedPaperIds, setSelectedPaperIds] = useState<string[]>(["rag", "self-rag"]);
+  const [selectedPaperIds, setSelectedPaperIds] = useState<string[]>(() =>
+    papers.slice(0, 2).map((paper) => paper.id),
+  );
   const [promptId, setPromptId] = useState(guidedPrompts[0].id);
   const [response, setResponse] = useState<CompareResponse | null>(null);
   const [error, setError] = useState<string | null>(null);

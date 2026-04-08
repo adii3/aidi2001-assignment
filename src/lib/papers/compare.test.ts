@@ -48,6 +48,27 @@ const fixtureCorpus: Corpus = {
 };
 
 describe("runComparison", () => {
+  it("accepts selectedPaperIds as a backwards-compatible alias", async () => {
+    const result = await runComparison(
+      {
+        selectedPaperIds: ["rag", "crag"],
+        promptId: "retrieval-strategy",
+      },
+      {
+        loadCorpus: async () => fixtureCorpus,
+        generateAnswer: async () => ({
+          summary: "alias ok",
+          differences: ["one", "two"],
+          recommendation: "Use RAG for the simplest baseline.",
+          cautions: ["Keep the scope narrow."],
+        }),
+      },
+    );
+
+    expect(result.papers.map((paper) => paper.id)).toEqual(["rag", "crag"]);
+    expect(result.answer.summary).toBe("alias ok");
+  });
+
   it("returns a structured response with selected papers and citations", async () => {
     const result = await runComparison(
       {
