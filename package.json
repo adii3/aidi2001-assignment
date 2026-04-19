@@ -10,7 +10,8 @@
     "test": "vitest run --environment node --pool threads --exclude tests/e2e/**",
     "test:watch": "vitest --environment node --pool threads --exclude tests/e2e/**",
     "test:e2e": "playwright test",
-    "ingest": "tsx scripts/ingest-papers.ts"
+    "ingest": "tsx scripts/ingest-papers.ts",
+    "evaluate:assignment6": "tsx scripts/evaluate-assignment6.ts"
   },
   "dependencies": {
     "next": "16.2.2",

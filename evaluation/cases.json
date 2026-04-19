@@ -1,0 +1,65 @@
+[
+  {
+    "id": "rep-1",
+    "type": "representative",
+    "label": "RAG vs Self-RAG on retrieval strategy",
+    "request": {
+      "paperIds": ["rag", "self-rag"],
+      "promptId": "retrieval-strategy"
+    }
+  },
+  {
+    "id": "rep-2",
+    "type": "representative",
+    "label": "RAG vs CRAG on evaluation differences",
+    "request": {
+      "paperIds": ["rag", "crag"],
+      "promptId": "evaluation-differences"
+    }
+  },
+  {
+    "id": "rep-3",
+    "type": "representative",
+    "label": "Self-RAG vs CRAG on strengths and limitations",
+    "request": {
+      "paperIds": ["self-rag", "crag"],
+      "promptId": "strengths-limitations"
+    }
+  },
+  {
+    "id": "rep-4",
+    "type": "representative",
+    "label": "All three papers on best fit for a lightweight POC",
+    "request": {
+      "paperIds": ["rag", "self-rag", "crag"],
+      "promptId": "best-fit-recommendation"
+    }
+  },
+  {
+    "id": "rep-5",
+    "type": "representative",
+    "label": "Backwards-compatible selectedPaperIds request",
+    "request": {
+      "selectedPaperIds": ["rag", "self-rag", "crag"],
+      "promptId": "evaluation-differences"
+    }
+  },
+  {
+    "id": "fail-1",
+    "type": "failure",
+    "label": "Legacy selector over-favors higher-scoring papers on retrieval strategy",
+    "request": {
+      "paperIds": ["rag", "self-rag", "crag"],
+      "promptId": "retrieval-strategy"
+    }
+  },
+  {
+    "id": "fail-2",
+    "type": "failure",
+    "label": "Legacy selector under-represents one paper on evaluation differences",
+    "request": {
+      "paperIds": ["rag", "self-rag", "crag"],
+      "promptId": "evaluation-differences"
+    }
+  }
+]

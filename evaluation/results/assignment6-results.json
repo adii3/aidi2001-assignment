@@ -1,0 +1,502 @@
+{
+  "summary": {
+    "generatedAt": "2026-04-19T17:41:47.073Z",
+    "representativeCaseCount": 5,
+    "representativeTaskSuccessRate": 1,
+    "averageOutputQualityScore": 6,
+    "averageOutputQualityMax": 6,
+    "baselineAverageBalanceGap": 1.1428571428571428,
+    "improvedAverageBalanceGap": 0,
+    "failureCasesImproved": 2
+  },
+  "results": [
+    {
+      "id": "rep-1",
+      "type": "representative",
+      "label": "RAG vs Self-RAG on retrieval strategy",
+      "request": {
+        "paperIds": [
+          "rag",
+          "self-rag"
+        ],
+        "promptId": "retrieval-strategy"
+      },
+      "prompt": "How do these papers differ in retrieval strategy?",
+      "baseline": {
+        "citationIds": [
+          "rag-1",
+          "self-rag-3",
+          "rag-2",
+          "rag-3",
+          "self-rag-2",
+          "self-rag-1"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "self-rag": 3
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 3,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "improved": {
+        "citationIds": [
+          "rag-1",
+          "self-rag-3",
+          "rag-2",
+          "rag-3",
+          "self-rag-2",
+          "self-rag-1"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "self-rag": 3
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 3,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Retrieval Strategy comparison across RAG, Self-RAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    },
+    {
+      "id": "rep-2",
+      "type": "representative",
+      "label": "RAG vs CRAG on evaluation differences",
+      "request": {
+        "paperIds": [
+          "rag",
+          "crag"
+        ],
+        "promptId": "evaluation-differences"
+      },
+      "prompt": "How do these papers evaluate success and evidence quality?",
+      "baseline": {
+        "citationIds": [
+          "rag-3",
+          "crag-3",
+          "crag-1",
+          "rag-1",
+          "rag-2",
+          "crag-2"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "crag": 3
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 3,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "improved": {
+        "citationIds": [
+          "rag-3",
+          "crag-3",
+          "crag-1",
+          "crag-2",
+          "rag-1",
+          "rag-2"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "crag": 3
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 3,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Evaluation Differences comparison across RAG, CRAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    },
+    {
+      "id": "rep-3",
+      "type": "representative",
+      "label": "Self-RAG vs CRAG on strengths and limitations",
+      "request": {
+        "paperIds": [
+          "self-rag",
+          "crag"
+        ],
+        "promptId": "strengths-limitations"
+      },
+      "prompt": "What are the main strengths and limitations of each approach?",
+      "baseline": {
+        "citationIds": [
+          "self-rag-3",
+          "crag-3",
+          "self-rag-1",
+          "self-rag-2",
+          "crag-1",
+          "crag-2"
+        ],
+        "countsByPaper": {
+          "self-rag": 3,
+          "crag": 3
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 3,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "improved": {
+        "citationIds": [
+          "crag-3",
+          "self-rag-3",
+          "crag-1",
+          "crag-2",
+          "self-rag-1",
+          "self-rag-2"
+        ],
+        "countsByPaper": {
+          "self-rag": 3,
+          "crag": 3
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 3,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Strengths and Limitations comparison across Self-RAG, CRAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, Self-RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    },
+    {
+      "id": "rep-4",
+      "type": "representative",
+      "label": "All three papers on best fit for a lightweight POC",
+      "request": {
+        "paperIds": [
+          "rag",
+          "self-rag",
+          "crag"
+        ],
+        "promptId": "best-fit-recommendation"
+      },
+      "prompt": "Which paper is the best fit for a lightweight RAG proof of concept and why?",
+      "baseline": {
+        "citationIds": [
+          "self-rag-3",
+          "crag-3",
+          "rag-1",
+          "rag-2",
+          "rag-3",
+          "self-rag-1"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "self-rag": 2,
+          "crag": 1
+        },
+        "coverageRatio": 1,
+        "balanceGap": 2,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": false
+      },
+      "improved": {
+        "citationIds": [
+          "crag-3",
+          "self-rag-3",
+          "crag-1",
+          "rag-1",
+          "rag-2",
+          "self-rag-1"
+        ],
+        "countsByPaper": {
+          "rag": 2,
+          "self-rag": 2,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Best Fit for a POC comparison across RAG, Self-RAG, CRAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    },
+    {
+      "id": "rep-5",
+      "type": "representative",
+      "label": "Backwards-compatible selectedPaperIds request",
+      "request": {
+        "selectedPaperIds": [
+          "rag",
+          "self-rag",
+          "crag"
+        ],
+        "promptId": "evaluation-differences"
+      },
+      "prompt": "How do these papers evaluate success and evidence quality?",
+      "baseline": {
+        "citationIds": [
+          "rag-3",
+          "self-rag-3",
+          "crag-3",
+          "crag-1",
+          "rag-1",
+          "rag-2"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "self-rag": 1,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 2,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": false
+      },
+      "improved": {
+        "citationIds": [
+          "rag-3",
+          "self-rag-3",
+          "crag-3",
+          "crag-1",
+          "rag-1",
+          "self-rag-1"
+        ],
+        "countsByPaper": {
+          "rag": 2,
+          "self-rag": 2,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Evaluation Differences comparison across RAG, Self-RAG, CRAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    },
+    {
+      "id": "fail-1",
+      "type": "failure",
+      "label": "Legacy selector over-favors higher-scoring papers on retrieval strategy",
+      "request": {
+        "paperIds": [
+          "rag",
+          "self-rag",
+          "crag"
+        ],
+        "promptId": "retrieval-strategy"
+      },
+      "prompt": "How do these papers differ in retrieval strategy?",
+      "baseline": {
+        "citationIds": [
+          "crag-1",
+          "rag-1",
+          "self-rag-3",
+          "crag-3",
+          "rag-2",
+          "rag-3"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "self-rag": 1,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 2,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": false
+      },
+      "improved": {
+        "citationIds": [
+          "crag-1",
+          "crag-3",
+          "rag-1",
+          "self-rag-3",
+          "rag-2",
+          "self-rag-2"
+        ],
+        "countsByPaper": {
+          "rag": 2,
+          "self-rag": 2,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Retrieval Strategy comparison across RAG, Self-RAG, CRAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    },
+    {
+      "id": "fail-2",
+      "type": "failure",
+      "label": "Legacy selector under-represents one paper on evaluation differences",
+      "request": {
+        "paperIds": [
+          "rag",
+          "self-rag",
+          "crag"
+        ],
+        "promptId": "evaluation-differences"
+      },
+      "prompt": "How do these papers evaluate success and evidence quality?",
+      "baseline": {
+        "citationIds": [
+          "rag-3",
+          "self-rag-3",
+          "crag-3",
+          "crag-1",
+          "rag-1",
+          "rag-2"
+        ],
+        "countsByPaper": {
+          "rag": 3,
+          "self-rag": 1,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 2,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": false
+      },
+      "improved": {
+        "citationIds": [
+          "rag-3",
+          "self-rag-3",
+          "crag-3",
+          "crag-1",
+          "rag-1",
+          "self-rag-1"
+        ],
+        "countsByPaper": {
+          "rag": 2,
+          "self-rag": 2,
+          "crag": 2
+        },
+        "coverageRatio": 1,
+        "balanceGap": 0,
+        "minimumQuotaPerPaper": 2,
+        "meetsCoverage": true,
+        "meetsBalancedQuota": true
+      },
+      "taskSuccess": true,
+      "outputQuality": {
+        "score": 6,
+        "maxScore": 6,
+        "checks": {
+          "summaryPresent": true,
+          "differencesValid": true,
+          "recommendationPresent": true,
+          "cautionsValid": true,
+          "citationCoverage": true,
+          "paperMentionsInDifferences": true
+        }
+      },
+      "answerPreview": {
+        "summary": "Evaluation Differences comparison across RAG, Self-RAG, CRAG using curated corpus evidence.",
+        "recommendation": "For a lightweight proof of concept, RAG is the safest starting point because it has the clearest retrieve-then-generate story and the least orchestration overhead."
+      }
+    }
+  ]
+}
