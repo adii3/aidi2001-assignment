@@ -91,7 +91,7 @@ The most important architecture capability I did not implement is `Tool-first` q
 - `Upstream component`: retrieval evidence balance and citation coverage across selected papers
 - `Baseline comparison`: current balanced selector versus the earlier global top-6 selector
 
-The evaluation script uses the app's deterministic fallback answer builder for reproducible offline scoring. In the video, you can also show a live provider-backed run on Vercel.
+The evaluation script uses the app's deterministic fallback answer builder for reproducible offline scoring.
 
 Current saved results:
 
